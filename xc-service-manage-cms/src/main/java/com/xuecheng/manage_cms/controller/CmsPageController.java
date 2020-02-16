@@ -7,6 +7,7 @@ import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_cms.service.CmsPageService;
+import com.xuecheng.manage_cms.service.CmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,8 @@ public class CmsPageController implements CmsPageControllerApi {
 
     @Autowired
     CmsPageService cmsPageService;
+    @Autowired
+    CmsService cmsService;
 
     /**
      * Cms 页面分页查询
@@ -84,5 +87,17 @@ public class CmsPageController implements CmsPageControllerApi {
     public ResponseResult delete(@PathVariable("id") String id) {
 
         return cmsPageService.delete(id);
+    }
+
+    /**
+     * 发布页面
+     * @param pageId 页面Id
+     * @return 发布页面信息
+     */
+    @Override
+    @GetMapping("/postPage/{pageId}")
+    public ResponseResult post(@PathVariable("pageId") String pageId) {
+
+        return cmsService.postPage(pageId);
     }
 }

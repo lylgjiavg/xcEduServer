@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>../test-rabbitmq-consumer</module>
-        <module>../untitled</module>
         <module>../test-rabbitmq-producer</module>
+        <module>../xc-service-manage-cms-client</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
