@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.CourseMarket;
+import com.xuecheng.framework.domain.course.CoursePic;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.CourseInfo;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +41,9 @@ public class CourseService {
     CourseMapper courseMapper;
     @Autowired
     TeachplanMapper teachplanMapper;
+
+    @Autowired
+    CoursePicRepository coursePicRepository;
     @Autowired
     TeachplanRepository teachplanRepository;
     @Autowired
@@ -256,4 +261,57 @@ public class CourseService {
         return new ResponseResult(CommonCode.SUCCESS);
     }
 
+    /**
+     * 添加课程图片
+     * @param courseId 课程id
+     * @param pic 课程图片id
+     * @return 响应信息
+     */
+    @Transactional
+    public ResponseResult saveCoursePic(String courseId, String pic) {
+        
+        // 查询课程图片
+        Optional<CoursePic> picOptional = coursePicRepository.findById(courseId);
+        CoursePic coursePic = null;
+        if(picOptional.isPresent()){
+            coursePic = picOptional.get();
+        }
+        //没有课程图片则新建对象
+        if(coursePic == null){
+            coursePic = new CoursePic();
+        }
+        coursePic.setCourseid(courseId);
+        coursePic.setPic(pic);
+        //保存课程图片
+        coursePicRepository.save(coursePic);
+
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+
+    /**
+     * 获取课程图片信息
+     * @param courseId 课程id
+     * @return 课程图片信息
+     */
+    public CoursePic findCoursepic(String courseId) {
+
+        return coursePicRepository.findByCourseid(courseId);
+    }
+
+
+    /**
+     * 删除课程图片
+     * @param courseId 课程id
+     * @return 响应结果
+     */
+    @Transactional
+    public ResponseResult deleteCoursePic(String courseId) {
+        //执行删除，返回1表示删除成功，返回0表示删除失败
+        long result = coursePicRepository.deleteByCourseid(courseId);
+        if(result>0){
+            return new ResponseResult(CommonCode.SUCCESS);
+        }
+        return new ResponseResult(CommonCode.FAIL);
+    }
 }

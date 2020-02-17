@@ -3,11 +3,11 @@ package com.xuecheng.manage_course.controller;
 import com.xuecheng.api.course.CourseControllerApi;
 import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.CourseMarket;
+import com.xuecheng.framework.domain.course.CoursePic;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
 import com.xuecheng.framework.domain.course.request.CourseListRequest;
 import com.xuecheng.framework.model.response.QueryResponseResult;
-import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +115,44 @@ public class CourseController implements CourseControllerApi {
     public ResponseResult updateCourseMarket(@PathVariable("id") String id, @RequestBody CourseMarket courseMarket) {
 
         return courseService.updateCourseMarket(id, courseMarket);
+    }
+
+    /**
+     * 添加课程图片
+     * @param courseId 课程id
+     * @param pic 课程图片id
+     * @return 响应信息
+     */
+    @Override
+    @PostMapping("/coursepic/add")
+    public ResponseResult addCoursePic(@RequestParam("courseId") String courseId, @RequestParam("pic") String pic) {
+
+        //保存课程图片
+        return courseService.saveCoursePic(courseId,pic);
+    }
+
+    /**
+     * 获取课程图片信息
+     * @param courseId 课程id
+     * @return 课程图片信息
+     */
+    @Override
+    @GetMapping("/coursepic/list/{courseId}")
+    public CoursePic findCoursePic(@PathVariable("courseId") String courseId) {
+
+        return courseService.findCoursepic(courseId);
+    }
+
+    /**
+     * 删除课程图片
+     * @param courseId 课程id
+     * @return 响应结果
+     */
+    @Override
+    @DeleteMapping("/coursepic/delete")
+    public ResponseResult deleteCoursePic(String courseId) {
+
+        return courseService.deleteCoursePic(courseId);
     }
 
 }

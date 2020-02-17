@@ -2,6 +2,7 @@ package com.xuecheng.api.course;
 
 import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.CourseMarket;
+import com.xuecheng.framework.domain.course.CoursePic;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.CourseInfo;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
@@ -75,4 +76,26 @@ public interface CourseControllerApi {
     })
     public ResponseResult updateCourseMarket(String id, CourseMarket courseMarket);
 
+
+    @ApiOperation("添加课程图片")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程id", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "pic", value = "课程图片id", required = true, paramType = "query", dataType = "String")
+    })
+    public ResponseResult addCoursePic(String courseId, String pic);
+
+
+    @ApiOperation("获取课程图片信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程id", required = true, paramType = "path", dataType = "String")
+    })
+    public CoursePic findCoursePic(String courseId);
+
+
+    @ApiOperation("删除课程图片")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程id", required = true, paramType = "path", dataType = "String")
+    })
+    public ResponseResult deleteCoursePic(String courseId);
+    
 }
