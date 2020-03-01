@@ -26,7 +26,7 @@ public class FreemarkerController {
     public String freemarker(Map<String, Object> map) {
 
         //向数据模型放数据
-        map.put("name","黑马程序员");
+        map.put("name", "黑马程序员");
 
         // stu1
         Student stu1 = new Student();
@@ -54,18 +54,18 @@ public class FreemarkerController {
         stus.add(stu1);
         stus.add(stu2);
         //向数据模型放数据
-        map.put("stus",stus);
+        map.put("stus", stus);
 
         //准备map数据
-        HashMap<String,Student> stuMap = new HashMap<>();
-        stuMap.put("stu1",stu1);
-        stuMap.put("stu2",stu2);
+        HashMap<String, Student> stuMap = new HashMap<>();
+        stuMap.put("stu1", stu1);
+        stuMap.put("stu2", stu2);
 
         //向数据模型放数据
-        map.put("stu1",stu1);
+        map.put("stu1", stu1);
 
         //向数据模型放数据
-        map.put("stuMap",stuMap);
+        map.put("stuMap", stuMap);
 
         //返回模板文件名称
         return "test1";
@@ -83,5 +83,14 @@ public class FreemarkerController {
         return "index_banner";
     }
 
+    @RequestMapping("/course")
+    public String course(Map<String, Object> map) {
+
+        ResponseEntity<Map> forEntity =
+                restTemplate.getForEntity("http://localhost:31200/course/courseview/4028e581617f945f01617f9dabc40000", Map.class);
+        Map body = forEntity.getBody();
+        map.putAll(body);
+        return "course";
+    }
 
 }

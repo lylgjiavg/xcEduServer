@@ -42,11 +42,11 @@ public class TestGridFS {
     public void store() throws FileNotFoundException {
 
         String classpath = this.getClass().getResource("/").getPath();
-        File file = new File(classpath + "/templates/index_banner.ftl");
+        File file = new File(classpath + "/templates/course.ftl");
 
         FileInputStream inputStream = new FileInputStream(file);
 
-        ObjectId objectId = gridFsTemplate.store(inputStream, "index_banner.ftl", "utf-8");
+        ObjectId objectId = gridFsTemplate.store(inputStream, "课程详情模板文件", "utf-8");
 
         System.out.println(objectId);
     }

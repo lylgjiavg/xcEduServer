@@ -30,6 +30,8 @@ public class CmsPagePreviewController extends BaseController {
     //接收到页面id
     @RequestMapping(value = "/{pageId}", method = RequestMethod.GET)
     public void preview(@PathVariable("pageId") String pageId) throws IOException, TemplateException {
+        response.setHeader("Content‐type","text/html;charset=utf‐8");
+
         String pageHtml = cmsService.getPageHtml(pageId);
         if (StringUtils.isNotEmpty(pageHtml)) {
             try {

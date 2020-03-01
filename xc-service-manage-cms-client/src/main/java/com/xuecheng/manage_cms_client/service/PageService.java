@@ -76,7 +76,7 @@ public class PageService {
         InputStream inputStream = this.getFileById(cmsPage.getHtmlFileId());
 
         // 把文件保存到本地
-        File file = new File(pagePhysicalPath);
+        File file = new File(pagePhysicalPath + cmsPage.getPageName());
         FileOutputStream outputStream = null;
 
         try {

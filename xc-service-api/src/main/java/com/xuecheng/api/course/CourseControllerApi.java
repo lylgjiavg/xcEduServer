@@ -7,6 +7,8 @@ import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.CourseInfo;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
 import com.xuecheng.framework.domain.course.request.CourseListRequest;
+import com.xuecheng.framework.domain.course.response.CoursePublishResult;
+import com.xuecheng.framework.domain.course.response.CourseView;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.framework.model.response.ResponseResult;
@@ -97,5 +99,27 @@ public interface CourseControllerApi {
             @ApiImplicitParam(name = "courseId", value = "课程id", required = true, paramType = "path", dataType = "String")
     })
     public ResponseResult deleteCoursePic(String courseId);
-    
+
+
+    @ApiOperation("课程视图查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "课程id", required = true, paramType = "path", dataType = "String")
+    })
+    public CourseView courseview(String id);
+
+
+    @ApiOperation("预览课程")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "课程id", required = true, paramType = "path", dataType = "String")
+    })
+    public CoursePublishResult preview(String id);
+
+
+    @ApiOperation("发布课程")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "课程id", required = true, paramType = "path", dataType = "String")
+    })
+    public CoursePublishResult publish(String id);
+
+
 }
